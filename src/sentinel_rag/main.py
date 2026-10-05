@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 
-from .api import get_indexer, get_qa, router\nfrom .config import get_settings\nfrom .dependencies import build_indexer, build_qa
+from .api import get_indexer, get_qa, router
+from .config import get_settings
+from .dependencies import build_indexer, build_qa
 
 settings = get_settings()
 
