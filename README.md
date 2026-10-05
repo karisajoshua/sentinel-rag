@@ -21,6 +21,10 @@ LLM reasoning -> Controlled tools -> Evidence-backed answer
    +-> Tracing / latency / token and cost metrics
 ```
 
+## Development status
+
+Feature changes are validated through pull requests and the repository CI workflow before integration into `main`.
+
 ## Phase 1 — Foundation
 
 Implemented now:
