@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from sentinel_rag.api import unavailable_indexer, unavailable_qa
+from sentinel_rag.api import get_indexer, get_qa
 from sentinel_rag.domain import GroundedAnswer
 from sentinel_rag.main import app
 
@@ -21,7 +21,7 @@ class FakeQA:
 
 
 def test_index_endpoint_uses_injected_service() -> None:
-    app.dependency_overrides[unavailable_indexer] = lambda: FakeIndexer()
+    app.dependency_overrides[get_indexer] = lambda: FakeIndexer()
     client = TestClient(app)
     response = client.post("/api/v1/repositories/index", json={
         "repository": "owner/repo",
@@ -38,7 +38,7 @@ def test_index_endpoint_uses_injected_service() -> None:
 
 
 def test_question_endpoint_validates_question_length() -> None:
-    app.dependency_overrides[unavailable_qa] = lambda: FakeQA()
+    app.dependency_overrides[get_qa] = lambda: FakeQA()
     client = TestClient(app)
     response = client.post("/api/v1/questions", json={
         "repository": "owner/repo",
