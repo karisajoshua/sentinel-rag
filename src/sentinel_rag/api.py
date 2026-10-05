@@ -32,18 +32,18 @@ class QAService(Protocol):
     def ask(self, repository: str, question: str, limit: int = 5) -> GroundedAnswer: ...
 
 
-def unavailable_indexer() -> IndexService:
+def get_indexer() -> IndexService:
     raise HTTPException(status_code=503, detail="Indexer is not configured")
 
 
-def unavailable_qa() -> QAService:
+def get_qa() -> QAService:
     raise HTTPException(status_code=503, detail="Grounded QA is not configured")
 
 
 @router.post("/repositories/index", response_model=IndexResponse)
 def index_repository(
     request: IndexRequest,
-    indexer: IndexService = Depends(unavailable_indexer),
+    indexer: IndexService = Depends(get_indexer),
 ) -> IndexResponse:
     if any(document.repository != request.repository for document in request.documents):
         raise HTTPException(status_code=422, detail="Document repository does not match request")
@@ -54,6 +54,6 @@ def index_repository(
 @router.post("/questions", response_model=GroundedAnswer)
 def ask_question(
     request: QuestionRequest,
-    qa: QAService = Depends(unavailable_qa),
+    qa: QAService = Depends(get_qa),
 ) -> GroundedAnswer:
     return qa.ask(request.repository, request.question, request.limit)
