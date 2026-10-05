@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from .api import router, unavailable_indexer, unavailable_qa\nfrom .config import get_settings\nfrom .dependencies import build_indexer, build_qa
+from .api import get_indexer, get_qa, router\nfrom .config import get_settings\nfrom .dependencies import build_indexer, build_qa
 
 settings = get_settings()
 
@@ -26,5 +26,5 @@ def root() -> dict[str, str]:
 
 
 app.include_router(router)
-app.dependency_overrides[unavailable_indexer] = build_indexer
-app.dependency_overrides[unavailable_qa] = build_qa
+app.dependency_overrides[get_indexer] = build_indexer
+app.dependency_overrides[get_qa] = build_qa
