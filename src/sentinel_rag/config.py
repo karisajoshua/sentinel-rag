@@ -6,7 +6,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     app_name: str = "SentinelRAG"
     environment: str = "development"
-    api_prefix: str = "/api/v1"\n    database_url: str | None = None\n    openai_api_key: str | None = None\n    openai_chat_model: str = "gpt-5-mini"
+    api_prefix: str = "/api/v1"
+    database_url: str | None = None
+    openai_api_key: str | None = None
+    openai_chat_model: str = "gpt-5-mini"
 
     model_config = SettingsConfigDict(
         env_prefix="SENTINEL_",
